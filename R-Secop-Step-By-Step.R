@@ -77,8 +77,18 @@ if (querybase!="") {
 }
 
 
+
+
 secop_portal_url <- paste(portal_socrata,resource,sep="")
+
+
+#requestExplorar <- paste(secop_portal_url,"$q=900320612",sep="") #SAP for example
+#dfNacho <- read.socrata(requestExplorar)
+
 request <- paste(secop_portal_url,query,sep="")
+
+
+
 
 #typeof(querybase)
 
