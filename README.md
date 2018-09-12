@@ -19,6 +19,12 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - [Secop Explorer](https://github.com/EsriColombia/r-arcgis-tools/wiki/secop-explorer)
 
+## Autores
+
+- Andres Felipe Riapira ariapira@esri.co
+- Ignacio Báez abaez@esri.co
+
+
 
 
 
