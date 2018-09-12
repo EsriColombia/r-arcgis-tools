@@ -87,7 +87,7 @@ tool_exec <- function(in_params, out_params){
   ###############################################################
   
   
-  pathMunicipios <- "c:\\esri\\r-arcgis-bridge-col-demo\\colombia.gdb\\municipios"
+  pathMunicipios <- "C:\\esri\\r-arcgis-tools\\colombia.gdb\\municipios"
   portal_socrata = "https://www.datos.gov.co"
   resource ="/resource/c6dm-udt9.json?"
   columna_municipio = "municipio_obtencion"

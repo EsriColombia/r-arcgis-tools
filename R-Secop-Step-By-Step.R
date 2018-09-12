@@ -44,12 +44,12 @@ arc.check_product()
 ###############################################################
 
 
-pathMunicipios <- "c:\\esri\\r-arcgis-bridge-col-demo\\colombia.gdb\\municipios"
+pathMunicipios <- "C:\\esri\\r-arcgis-tools\\colombia.gdb\\municipios"
 portal_socrata = "https://www.datos.gov.co"
 resource ="/resource/c6dm-udt9.json?"
 ano_consulta = "2017"
 querybase=""
-salida = "c:\\esri\\r-arcgis-bridge-col-demo\\colombia.gdb\\analisissalida"
+salida = "C:\\esri\\r-arcgis-tools\\colombia.gdb\\analisissalida"
 columna_municipio = "municipio_obtencion"
 
 ###############################################################
