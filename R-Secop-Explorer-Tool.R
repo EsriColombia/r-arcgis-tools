@@ -26,11 +26,8 @@ tool_exec <- function(in_params, out_params){
   #####################################################################################################  
   ### 1.  Obtener variables de entorno del servicio de geoprocesamiento
   #####################################################################################################   
-  env <- arc.env()
-  workspace <- env$workspace
-  cat(paste0("\n", "............................................", "\n"))
-  cat(paste0("\n", "Current Workspace:", "\n"))
-  print(workspace)
+ 
+
   
   print ("Cargando dependencias.")
   
@@ -58,7 +55,11 @@ tool_exec <- function(in_params, out_params){
   
   print ("Verificando Licencia de arcgis pro")
   arc.check_product()
-  
+  env <- arc.env()
+  workspace <- env$workspace
+  cat(paste0("\n", "............................................", "\n"))
+  cat(paste0("\n", "Current Workspace:", "\n"))
+  print(workspace)
   imprimir ("hecho",25)
   
   

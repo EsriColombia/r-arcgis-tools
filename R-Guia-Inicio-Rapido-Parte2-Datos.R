@@ -31,6 +31,7 @@ icfes
 
 
 prommunicipios<- icfes$avg_punt_global
+head(prommunicipios)
 prommunicipios
 prommunicipios[1]# Primer item en el vector.
 prommunicipios[3] #Tercer item en el vector.
@@ -159,7 +160,7 @@ determinarClase <- function(row)
 }
 
 summary(resumen)
-
+help(apply)
 resumenClas$clase <- apply(resumenClas,1,determinarClase ) #Applies a function to rows or columns of a data frame, matrix, or
 head(resumenClas)
 
@@ -244,4 +245,18 @@ qqline(prommunicipios, lwd = 2, lty = 2)
 ########################################################################################################
 # Prueba de Hipótesis
 ######################################################################################################## 
+
+
+
+
+
+
+########################################################################################################
+# Gráficos
+######################################################################################################## 
+
+
+boxplot(icfes$max_punt_global,icfes$avg_punt_global,icfes$min_punt_global, names= c("maximo", "promedio", "minimo"))
+
+
 
