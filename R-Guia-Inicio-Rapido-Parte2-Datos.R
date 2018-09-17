@@ -30,7 +30,7 @@ icfes
 
 
 
-prommunicipios<- icfes$"avg_punt_global"
+prommunicipios<- icfes$avg_punt_global
 prommunicipios
 prommunicipios[1]# Primer item en el vector.
 prommunicipios[3] #Tercer item en el vector.
@@ -85,7 +85,6 @@ t(icfes)
 #######################################
 
 max(icfes$avg_punt_global)
-
 min(prommunicipios, na.rm = FALSE) #Shows the minimum value in a vector. If there are NA values, this returns a value of NA unless na.rm = TRUE is used.
 length(prommunicipios)# Gives the length of the vector and includes any NA values. The na.rm = instruction does not work with this command.
 sum(prommunicipios, na.rm = FALSE) #Shows the sum of the vector elements.
@@ -94,3 +93,155 @@ median( prommunicipios, na.rm = FALSE) #Shows the median value of the vector.
 sd(prommunicipios, na.rm = FALSE) #Shows the standard deviation.
 var(prommunicipios, na.rm = FALSE) #Shows the variance.
 mad(prommunicipios, na.rm = FALSE) #Shows the median absolute deviation.
+
+
+
+#Acumulativos
+cumsum(prommunicipios) #The cumulative sum of a vector
+cummax(prommunicipios) #The cumulative maximum value
+cummin(prommunicipios) #The cumulative minimum value
+cumprod(prommunicipios) #The cumulative product
+
+##################################################
+# Estadística descriptiva aplicada al dataframe
+##################################################
+
+resumen<-icfes[,c(1,4,5)]
+
+rowMeans(resumen)
+
+#Tabla de contingencia
+table(resumen)
+
+
+
+
+rowSums(resumen) # Calcula la suma por fila 
+colSums(resumen) # Calcula la suma por columna
+
+rowMeans(resumen) # Calcula la media por fila
+
+colMeans(resumen) # Calcula la media por columna
+
+#rm(resumenClas)
+resumenClas <- resumen
+resumenClas$clase = NA
+
+determinarClase <- function(row)
+{
+  clase<-0
+  promedio <- row[1]
+  maximo <- row[2]
+  minimo <- row[3]
+  
+  
+  if (minimo>200 && promedio > 260 && maximo > 300)
+  {
+    clase <- 5
+  }
+  else if (minimo>180 && promedio > 250 && maximo > 290)
+  {
+    clase <- 4
+  }
+  else if (minimo>160 && promedio > 240 && maximo > 280)
+  {
+    clase <- 3
+  }
+  else if (minimo>150 && promedio > 220 && maximo > 260)
+  {
+    clase <- 2
+  }
+  else if (minimo>130 && promedio > 210 && maximo > 230)
+  {
+    clase <- 1
+  }
+  return(clase)
+}
+
+summary(resumen)
+
+resumenClas$clase <- apply(resumenClas,1,determinarClase ) #Applies a function to rows or columns of a data frame, matrix, or
+head(resumenClas)
+
+
+prommunicipios <- as.integer(prommunicipios)
+
+stem(prommunicipios,scale=6)
+hist(prommunicipios)
+hist(prommunicipios, breaks = 'FD')
+hist(prommunicipios, breaks = 'Sturges')
+hist(prommunicipios, breaks = 'Scott')
+hist(prommunicipios, breaks = 'FD')
+colors()
+colours()
+hist(prommunicipios, breaks = 'FD')
+dens <- density(prommunicipios)
+
+dens
+
+plot(dens$x, dens$y)
+lines(dens, lty = 2)
+
+
+shapiro.test(prommunicipios)
+
+
+
+######################################################################
+# Crear datos aleatorios que cumplan con una determinada distribucion
+######################################################################
+
+datosNormales = rnorm(1200, mean = 250, sd = 1)
+densd2 <- density(datosNormales)
+plot(densd2$x,densd2$y)
+
+hist(datosNormales)
+
+######################################################################
+# Otras distribuciones
+######################################################################
+
+#dbeta beta
+#dbinom binomial (including Bernoulli)
+#dcauchy Cauchy
+#dchisq chi-squared
+#dexp exponential
+#df F distribution
+#dgamma gamma
+#dgeom geometric (special case of negative binomial)
+#dhyper hypergeometric
+#dlnorm log-normal
+#dmultinom multinomial
+#continues
+
+ 
+datosCauchy
+datosCauchy = dcauchy(0:200,location = 250,scale=1,log=FALSE)
+hist(datosCauchy)
+
+plot(density(datosCauchy))
+
+
+
+# The Kolmogorov-Smirnov Test
+# Permite comparar dos distribuciones, esto significa que se pude comparar una muestra de una distribución conocida
+# o comporar dos distribuciones desconocidas para verificar si son o no las mismas. 
+# Significancia estadística. La decisión se toma a menudo utilizando el valor p (o p-valor): si el valor p es inferior
+# al nivel de significación, entonces la hipótesis nula es rechazada. Cuanto menor sea el valor p, más significativo será el resultado
+
+
+ks.test(sort(prommunicipios), datosNormales)
+ks.test(sort(prommunicipios), datosNormales)
+
+# Si p-valor ??? ?? ??? Aceptar H0  contrario rechazar
+# Si p-valor z
+
+
+qqnorm(prommunicipios)
+qqline(prommunicipios, lwd = 2, lty = 2)
+
+
+########################################################################################################
+# Prueba de Hipótesis
+######################################################################################################## 
+

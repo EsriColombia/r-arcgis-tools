@@ -205,6 +205,8 @@ b <- c("one","two","three") # character vector
 c <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) #logical vector
 
 
+
+
 #Matrices 
 
 
