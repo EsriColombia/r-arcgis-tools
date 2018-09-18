@@ -242,14 +242,6 @@ qqnorm(prommunicipios)
 qqline(prommunicipios, lwd = 2, lty = 2)
 
 
-########################################################################################################
-# Prueba de Hipótesis
-######################################################################################################## 
-
-
-
-
-
 
 ########################################################################################################
 # Gráficos
@@ -258,5 +250,13 @@ qqline(prommunicipios, lwd = 2, lty = 2)
 
 boxplot(icfes$max_punt_global,icfes$avg_punt_global,icfes$min_punt_global, names= c("maximo", "promedio", "minimo"))
 
+plot (icfes$avg_punt_global, icfes$N)
 
+
+################
+# Notacion de fórmula
+#######
+
+m <- lm(avg_punt_global ~ N, data = icfes)
+summary (m)
 
