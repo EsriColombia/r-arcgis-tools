@@ -55,11 +55,11 @@ tool_exec <- function(in_params, out_params){
   
   print ("Verificando Licencia de arcgis pro")
   arc.check_product()
-  env <- arc.env()
-  workspace <- env$workspace
+  #env <- arc.env()
+  #workspace <- env$workspace
   cat(paste0("\n", "............................................", "\n"))
   cat(paste0("\n", "Current Workspace:", "\n"))
-  print(workspace)
+  #print(workspace)
   imprimir ("hecho",25)
   
   
@@ -91,7 +91,7 @@ tool_exec <- function(in_params, out_params){
   pathMunicipios <- "C:\\esri\\r-arcgis-tools\\colombia.gdb\\municipios"
   portal_socrata = "https://www.datos.gov.co"
   resource ="/resource/c6dm-udt9.json?"
-  columna_municipio = "municipio_obtencion"
+  columna_municipio = "dpto_y_muni_contratista"
   
   
   imprimir ("Procesando",29)
@@ -135,7 +135,7 @@ tool_exec <- function(in_params, out_params){
   
   df <- read.socrata(request)
   
-  imprimir("Hecho",35)
+  imprimir("Cargados datos desde socrata",35)
   
 
   arcMuni <- arc.open(path=pathMunicipios)
@@ -161,7 +161,7 @@ tool_exec <- function(in_params, out_params){
   imprimir("Procesando Datos",50)
   
   
-  df$muniUpper <- toupper(df$municipio_obtencion)
+  df$muniUpper <- toupper(df$dpto_y_muni_contratista)
   df$muniUpper <-gsub("Á","A",df$muniUpper)
   df$muniUpper <-gsub("É","I",df$muniUpper)
   df$muniUpper <-gsub("Í","E",df$muniUpper)
@@ -171,7 +171,7 @@ tool_exec <- function(in_params, out_params){
   
   aggdata <- summaryBy(cuantia ~ muniUpper,data = df, FUN = sum)
   
-  imprimir("Hecho",60)
+  imprimir("Datos acomodados para join",60)
   
   
   imprimir("Haciendo Join Espacial",62)
