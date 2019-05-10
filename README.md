@@ -18,7 +18,7 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 ## Notebooks
 
-- [Procesamiento Raster](Raster_Notebook.ipynb)
+- [Procesamiento Raster](notebooks/Raster_Notebook.ipynb)
 
 - [Anáisis de Crimen](notebooks/Crime.ipynb)
 
