@@ -14,20 +14,25 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - [r-arcgis-bridge](https://learn.arcgis.com/es/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/lessons/install-the-r-arcgis-bridge-and-start-statistical-analysis.htm)
 
+- Jupyter Notebooks. 
+
+## Notebooks
+
+- [Procesamiento Raster](Raster_Notebook.ipynb)
+
+- [Anáisis de Crimen](notebooks/Crime.ipynb)
+
 
 ## Herramientas
 
-- [Secop Explorer](https://github.com/EsriColombia/r-arcgis-tools/wiki/secop-explorer)
+- [Secop Explorer](doc/Secop_Explorer.md)
+
+
+
 
 ## Autores
 
 - Andres Felipe Riapira ariapira@esri.co
 - Ignacio Báez abaez@esri.co
-
-
-
-
-
-
 
 
