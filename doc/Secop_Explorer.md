@@ -33,18 +33,21 @@ Puede ejecutar el script R-Secop-Step-By-Step.R para comprobar funcionalidad
 - En el parametro Name, nómbrelo como **SecopExplorer**, en Label:  **Explora datos del portal de datos abiertos de Secop**, y las demás opciones, las que vienen por defecto, en la pestaña parametros 
 llene los parámetros de la siguiente manera: 
 
-![R2](https://farm2.staticflickr.com/1883/42397090320_c129f041cd_o.png)
+- Parametro 0: Ano de Consulta - String - Entrada
+- Parametro 1: Feature de Salida - FeatureClass - Salida
+- Parametro 2: Reporte de Salida - File - Salida - Filter (html)
 
-- Al parametro año de consulta puede agregar un filtro manual con los años disponibles de consulta, que para el SECOP, son desde 2011 a 2018 (año de publicacion de esta herramienta)
+![R2](img/parameters.png)
 
-![R3](https://farm2.staticflickr.com/1854/43486830794_dfdd00c111_o.png)
 
 - Pruebe la herramienta ejecutandola directamente en ArcgisPro:
 
-![R4](https://farm2.staticflickr.com/1845/42397090240_bdc4f649a8_o.png)
+![R4](img/secopexplorer1.png)
 
-![R5](https://farm2.staticflickr.com/1860/44156787362_f9b9cf2205_o.png)
+![R5](img/secopexplorer2.png)
 
-- Verifique el resultado y ajuste la simbologia del feature class de salida clasificando el resultado por la columna totalcontratado
+- Verifique el resultado y ajuste la simbologia del feature class de salida clasificando el resultado por la columna del año que le interese
 
-![R6](https://farm2.staticflickr.com/1894/43486830674_815e8739a3_o.png)
+![R6](img/secopexplorer3.png)
+
+![R7](img/secopexplorer4.png)
