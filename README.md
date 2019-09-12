@@ -56,7 +56,7 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - [2019 Tools for the Modern Web Developer](https://www.youtube.com/watch?v=ygQ25o7yCSI)
 
-- [2019 Writing Image Processing Algorithms using the Python Raster Function] (https://www.youtube.com/watch?v=FenT61l-xyQ)
+- [2019 Writing Image Processing Algorithms using the Python Raster Function](https://www.youtube.com/watch?v=FenT61l-xyQ)
 
 - [2019 Using Deep Learning Models with ArcGIS to Extract Information from Imagery](https://www.youtube.com/watch?v=RtagUu7t63c)
 
