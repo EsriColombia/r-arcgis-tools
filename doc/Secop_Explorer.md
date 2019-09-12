@@ -46,9 +46,10 @@ llene los parámetros de la siguiente manera:
 
 ![R5](img/secopexplorer2.png)
 
-- Verifique el resultado y ajuste la simbologia del feature class de salida clasificando el resultado por la columna del año que le interese
+- Verifique el resultado y ajuste la simbologia del feature class de salida clasificando el resultado por la columna del año que le interese:
 
 ![R6](img/secopexplorer3.png)
 
-- Chequee el reporte de salida
+- Chequee el reporte de salida:
+
 ![R7](img/secopexplorer4.png)
