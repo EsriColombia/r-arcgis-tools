@@ -1,4 +1,4 @@
-# R Arcgis Bridge Demos Colombia
+# R ArcGIS Bridge Demos Colombia
 
 Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Todos los demos y datos están regionalizados a Colombia.
 
@@ -12,15 +12,15 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - Arcgis Pro 2 o superior. 
 
-- [r-arcgis-bridge](https://learn.arcgis.com/es/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/lessons/install-the-r-arcgis-bridge-and-start-statistical-analysis.htm)
+- [R-ArcGIS-bridge](https://learn.arcgis.com/es/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/lessons/install-the-r-arcgis-bridge-and-start-statistical-analysis.htm)
 
 - Jupyter Notebooks. 
 
 ## Recursos y enlaces para R y Python:
 
-- [r-arcgis repositorio principal](https://github.com/R-ArcGIS)
+- [R-ArcGIS: Repositorio principal](https://github.com/R-ArcGIS)
 
-- [r-arcgis ejemplos y casos de uso](https://github.com/R-ArcGIS/r-sample-tools)
+- [R-ArcGIS: Ejemplos y casos de uso](https://github.com/R-ArcGIS/r-sample-tools)
 
 - [Python: Repositorio del Ing. Alberto Nieto](https://github.com/Qberto?tab=repositories)
 
@@ -30,7 +30,7 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - [Detección de Objetos con tensorflow](https://github.com/tensorflow/models/tree/master/research/object_detection)
 
-- [RetailScientifics - Integracion con WebAppBuilder](https://github.com/R-ArcGIS/RetailScientifics)R
+- [RetailScientifics - Integracion con WebAppBuilder](https://github.com/R-ArcGIS/RetailScientifics)
 
 
 ## Notebooks con demos locales.
