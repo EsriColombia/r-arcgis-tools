@@ -1,0 +1,58 @@
+---
+title: "Reporte Secop Explorer"
+author: "SECOP Portal de datos Abiertos"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+params: 
+  tabla_consulta : NA
+  texto_consulta: NA
+  tabla_resumen: NA
+  grafico_municipios: NA
+  graficas_individuales: NA
+---
+
+
+# Resultados de la consulta en Secop
+
+Texto Consultado: 
+
+```{r, echo=FALSE}
+print(params$texto_consulta)
+
+```
+
+
+## Resumen de los contratos por año:
+
+```{r, echo=FALSE}
+knitr::kable(params$tabla_resumen, caption = 'Resumen por ano',booktabs = TRUE, longtable = TRUE)
+```
+
+Grafico totales
+
+```{r , echo=FALSE}
+params$grafico_municipios
+```
+
+Graficas Individuales por depto
+
+```{r , echo=FALSE}
+lista_graficas <- params$graficas_individuales
+
+for (i in 1:length(lista_graficas))
+{
+	
+	print(lista_graficas[i])
+	
+}
+
+```
+
+## Total de Contratos realizados
+
+A continuacion, la lista de los contratos realizados:
+
+
+```{r, echo=FALSE}
+knitr::kable(params$tabla_consulta, caption = 'Resultado de Consulta',booktabs = TRUE, longtable = TRUE)
+```
+

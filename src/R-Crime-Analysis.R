@@ -56,8 +56,8 @@ reorder_cormat <- function(cormat) {
 
 
 
-pathds <- "c:\\ESRI\\r-arcgis-tools\\seguridad.gdb\\hotspothomicidiosenriquecido"
-pathdssuavizado <- "c:\\ESRI\\r-arcgis-tools\\seguridad.gdb\\hotspothomicidiosenriquecidosuave"
+pathds <- "c:\\ESRI\\r-arcgis-tools\\datasets\\seguridad.gdb\\hotspothomicidiosenriquecido"
+pathdssuavizado <- "c:\\ESRI\\r-arcgis-tools\\datasets\\seguridad.gdb\\hotspothomicidiosenriquecidosuave"
 
 enrichdf <- arc.open(path=pathds)
 columnasDS <-  c('OBJECTID',

@@ -35,7 +35,7 @@ library(cluster)
 arc.check_product()
 working_directory <- "C:\\esri\\r-arcgis-tools"
 setwd(working_directory)
-path_raster_entrada <- paste(working_directory,"\\cartagena.gdb\\cartagena",sep="")
+path_raster_entrada <- paste(working_directory,"\\datasets\\cartagena.gdb\\cartagena",sep="")
 path_raster_img <- "c:\\esri\\raster_salida"
 
 

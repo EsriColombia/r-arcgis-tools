@@ -30,6 +30,7 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - [Detección de Objetos con tensorflow](https://github.com/tensorflow/models/tree/master/research/object_detection)
 
+- [RetailScientifics - Integracion con WebAppBuilder](https://github.com/R-ArcGIS/RetailScientifics)R
 
 
 ## Notebooks con demos locales.
@@ -43,8 +44,21 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - [Secop Explorer](doc/Secop_Explorer.md)
 
+## Videos Relacionados
 
+- [2019 GeoAI: Integrating Machine Learning with ArcGIS](https://www.esri.com/videos/watch?videoid=yfu34c_XxXo&title=geoai-integrating-machine-learning-with-arcgis)
 
+- [2019 Bridge Meets the Cloud: Empowering Your Analysis with the R-ArcGIS Bridge](https://www.esri.com/videos/watch?videoid=5WyzAhQsXv4&title=Bridge%20Meets%20the%20Cloud%3A%20Empowering%20Your%20Analysis%20with%20the%20R-ArcGIS%20Bridge)
+
+- [2019 Python: Map Automation in ArcGIS Pro](https://www.youtube.com/watch?v=VDp6jwxW5h4)
+
+- [2019 ArcGIS API for Python: Mapping, Visualization, and Analysis](https://www.youtube.com/watch?v=mKjyeesUr80)
+
+- [2019 Tools for the Modern Web Developer](https://www.youtube.com/watch?v=ygQ25o7yCSI)
+
+- [2019 Writing Image Processing Algorithms using the Python Raster Function] (https://www.youtube.com/watch?v=FenT61l-xyQ)
+
+- [2019 Using Deep Learning Models with ArcGIS to Extract Information from Imagery](https://www.youtube.com/watch?v=RtagUu7t63c)
 
 ## Autores
 
