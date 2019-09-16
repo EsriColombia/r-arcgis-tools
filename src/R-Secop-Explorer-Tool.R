@@ -61,6 +61,8 @@ tool_exec <- function(in_params, out_params){
   require("reshape2")
   require("reshape")
   require("ggplot2")
+  require("leaflet")
+  require("leaflet.esri")
   print ("Verificando Licencia de arcgis pro")
   arc.check_product()
   
@@ -70,8 +72,8 @@ tool_exec <- function(in_params, out_params){
     arc.progress_pos(per)
     print (msg)
   }
- 
- 
+  
+  
   imprimir ("Iniciando Geoproceso",1)
   
   
@@ -104,7 +106,8 @@ tool_exec <- function(in_params, out_params){
   outputformathtml = "html_document"
   #outputformatpdf = "pdf_document"
   output_report_format = outputformathtml
-  pathMunicipios <- "C:\\esri\\r-arcgis-tools\\datasets\\colombia.gdb\\deptos"
+  #pathDepartamentos <-"C:\\esri\\r-arcgis-tools\\datasets\\colombia.gdb\\deptos"
+  pathDepartamentos <- "https://services1.arcgis.com/I4YYbPSw13ugmbAP/ArcGIS/rest/services/GDB_ECV_2da_parte_gdb/FeatureServer/0" # "C:\\esri\\r-arcgis-tools\\datasets\\colombia.gdb\\deptos"
   pathReporte <- "c:\\esri\\r-arcgis-tools\\src\\ReportSecop.Rmd"
   portal_socrata = "https://www.datos.gov.co"
   resource ="/resource/c6dm-udt9.json?"
@@ -126,24 +129,24 @@ tool_exec <- function(in_params, out_params){
   orderby <- stri_join_list(orderbycolumns,sep=",")
   
   columnas_rename <- list(c("ID",
-                             "CONTRATISTA",
-                             "PLAZO",
-                             "ADICIONES",
-                             "ANO",
-                             "DEPARTAMENTO",
-                             "ENTIDAD",
-                             "VALOR",
-                             "PROCESO",
-                             "CONTRATO",
-                             "URL"))
+                            "CONTRATISTA",
+                            "PLAZO",
+                            "ADICIONES",
+                            "ANO",
+                            "DEPARTAMENTO",
+                            "ENTIDAD",
+                            "VALOR",
+                            "PROCESO",
+                            "CONTRATO",
+                            "URL"))
   
   
   ###############################################################
   # 4. Elaboracion de las consultas
   ###############################################################
   imprimir ("Cargando datos desde geodatabase local",33)
-  arcMuni <- arc.open(path=pathMunicipios)
-  d_sub <- arc.select(arcMuni, fields = "*", where_clause = "1=1")
+  arcMuni <- arc.open(path=pathDepartamentos)
+  d_sub <- arc.select(arcMuni, fields = "*", where_clause = "1=1", sr = 4326)
   element<- arc.data2sp(d_sub)
   
   element@data$NOMBRE <- toupper(element@data$DPTO_CNMBR)
@@ -156,13 +159,12 @@ tool_exec <- function(in_params, out_params){
   element@data$NOMBRE <-gsub(",","",element@data$NOMBRE)
   
   query<- paste("$select=",columnas,sep="")
-  
   query <- paste(query,"&$q=",querybase,sep="")
   query<- paste(query,"&$order=",orderby,sep="")
   
   
   imprimir ("Hecho",33)
-
+  
   
   ###############################################################
   # 4. Cargue de datos al workspace
@@ -181,23 +183,22 @@ tool_exec <- function(in_params, out_params){
   df_cp <- setNames(df, columnas_rename[[1]]) %>% mutate(VALOR = as.numeric(VALOR)/1000000)
   
   summary_year <- group_by(df_cp, ANO,DEPARTAMENTO) %>% 
-                  summarize(TOTAL_CONT = sum(VALOR, na.rm=TRUE),
-                            PROM = mean(VALOR, na.rm = TRUE),
-                            MAX = max(VALOR, na.rm = TRUE),
-                            MIN = min(VALOR, na.rm = TRUE))
+    summarize(TOTAL_CONT = sum(VALOR, na.rm=TRUE),
+              PROM = mean(VALOR, na.rm = TRUE),
+              MAX = max(VALOR, na.rm = TRUE),
+              MIN = min(VALOR, na.rm = TRUE))
   
   summary_tot <- select (summary_year,ANO:TOTAL_CONT)
-  
-  ano_ciudad <- cast(summary_tot , ANO~DEPARTAMENTO,value="TOTAL_CONT")
-  
-  ano_ciudad[is.na(ano_ciudad)] <- 0
+  ano_departamento <- cast(summary_tot , ANO~DEPARTAMENTO,value="TOTAL_CONT")
+  ano_departamento[is.na(ano_departamento)] <- 0
   grafica_mun <- ggplot(summary_tot, aes(x=DEPARTAMENTO, y=TOTAL_CONT )) + geom_col(aes(fill = ANO), width = 0.7) + coord_flip() 
+  
   imprimir("Construyendo Graficas de Salida",60)
   lista_graficas = c()
-  for (i in 2:ncol(ano_ciudad))
+  for (i in 2:ncol(ano_departamento))
   {
     imprimir (paste("Creando grafica en no ",i),62)
-    subset <- ano_ciudad[,c(1,i)]
+    subset <- ano_departamento[,c(1,i)]
     depto <- colnames(subset)[2]
     label1 <- paste("Contratado en el depto de ",depto,sep="")
     colnames(subset)<-c('ano','valor')
@@ -207,35 +208,57 @@ tool_exec <- function(in_params, out_params){
   
   imprimir("Construyendo Join alfanumerico - espacial",70)
   
-  ciudad_ano <- cast(summary_tot , DEPARTAMENTO~ANO,value="TOTAL_CONT")
-  ciudad_ano[is.na(ciudad_ano)] <- 0
-  ciudad_ano$DEPARTAMENTO <- toupper(ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub("Á","A",ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub("É","E",ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub("Í","I",ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub("Ó","O",ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub("Ú","U",ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub(",","",ciudad_ano$DEPARTAMENTO)
-  ciudad_ano$DEPARTAMENTO <-gsub("\\.","",ciudad_ano$DEPARTAMENTO)
+  departamento_ano <- cast(summary_tot , DEPARTAMENTO~ANO,value="TOTAL_CONT")
+  departamento_ano[is.na(departamento_ano)] <- 0
+  departamento_ano$DEPARTAMENTO <- toupper(departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub("Á","A",departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub("É","E",departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub("Í","I",departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub("Ó","O",departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub("Ú","U",departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub(",","",departamento_ano$DEPARTAMENTO)
+  departamento_ano$DEPARTAMENTO <-gsub("\\.","",departamento_ano$DEPARTAMENTO)
   
+  
+  departamento_ano<-departamento_ano %>% mutate (PROMEDIO=Reduce("+",.[2:ncol(departamento_ano)])/(ncol(departamento_ano)-1))
+  departamento_ano<-departamento_ano %>% mutate (TOTAL=Reduce("+",.[2:ncol(departamento_ano)]))
 
+  promedio_por_departamento <- departamento_ano %>% select(DEPARTAMENTO,PROMEDIO)
   
-  
-  
-  
-  imprimir("Haciendo Join Espacial",82)
+  imprimir("Haciendo Join Espacial",75)
   
   
   mp<- element@data
   
-  OutDF<- sqldf("select a.*, b.* from mp as a left join ciudad_ano as b on a.NOMBRE = b.DEPARTAMENTO" )
+  OutDF<- sqldf("select a.*, b.* from mp as a left join departamento_ano as b on a.NOMBRE = b.DEPARTAMENTO",drv="SQLite" )
   OutDF[is.na(OutDF)] <- 0
-  
-  
-  
-  imprimir("Creando feature de salida",83)
-  
+
   element2 <- SpatialPolygonsDataFrame(element,OutDF,match.ID = FALSE)
+  element2 <- subset(element2, TOTAL>0)  
+
+  
+  
+  imprimir("Creando mapa de salida",77)
+  
+  
+  if(nrow(element2@data)>1)
+  {
+    renderer <- colorQuantile("RdYlBu",domain=element2$PROMEDIO, reverse=T)
+    mapa_salida <- leaflet(element2) %>%
+      addProviderTiles(providers$Esri)  %>%
+      addPolygons(
+        color=~renderer(PROMEDIO)
+      ) %>%
+      addLegend(pal=renderer, values = element2$PROMEDIO,title="Promedio contratado")
+    
+  } else {
+      mapa_salida <- leaflet(element2) %>%
+      addProviderTiles(providers$Esri) %>%
+        addPolygons()
+  }
+    
+  
+  
   
   imprimir("Hecho",84)
   
@@ -245,6 +268,8 @@ tool_exec <- function(in_params, out_params){
     tabla_consulta = df_cp,
     texto_consulta = querybase, 
     tabla_resumen = summary_year,
+    mapa_salida = mapa_salida,
+    promedio_por_departamento = promedio_por_departamento,
     grafico_municipios = grafica_mun,
     graficas_individuales = lista_graficas
   )
@@ -253,14 +278,17 @@ tool_exec <- function(in_params, out_params){
   arc.write(salida_shape,element2)
   
   imprimir("Construyendo reporte de salida",92)
+  
+  
   render(pathReporte, output_file = salida_reporte,
          params=parametros_reporte,
          output_format = output_report_format,encoding = "UTF-8" )
   
-
-  
   imprimir("Hecho",100)
   
 }
+
+
+
 
 

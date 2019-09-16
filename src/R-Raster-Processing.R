@@ -29,7 +29,10 @@ library(sp)
 library(raster)
 library(arcgisbinding)
 library(cluster)
-
+library(leaflet)
+library(leaflet.esri)
+library(ggplot2)
+library(dplyr)
 
 #verificando la licencia de ArcGIS
 arc.check_product()
@@ -47,7 +50,7 @@ obj_data <- arc.open(path_raster_entrada)
 arc_raster <- arc.raster(obj_data)
 #Convertirlo en un objeto raster
 mi_raster <- as.raster(arc_raster)
-
+dim(mi_raster)
 
 #viendo el metadato
 mi_raster
@@ -57,18 +60,25 @@ ras <- stack(mi_raster)
 ## Obtener el layer 2 individual
 banda_2 <- ras@layers[2][[1]] 
 
+## Ver el histograma de una banda 
 hist(getValues(banda_2))
 hist(mi_raster[], main=NULL)
 
-dim(mi_raster)
+## Filtrado de valores digitales para no ver los ceros
+vals_hist <- data.frame(x=getValues(banda_2))
+vals_hist <- filter(vals_hist,x>0)
+
+## Dibujando
+figura1 <- ggplot(vals_hist,aes(x=x)) + geom_histogram(fill="darkblue")
+figura1
 
 
 #Color natural	4 3 2
+
 plotRGB(mi_raster,r=4,g=3,b=2)
 plotRGB(mi_raster,r=4,g=3,b=2, stretch="hist")
-
 #Falso color (urbano)	7 6 4
-plotRGB(mi_raster,r=7,g=6,b=4, stretch="hist")
+pz<-plotRGB(mi_raster,r=7,g=6,b=4, stretch="hist")
 
 #Color infrarrojo (vegetación)	5 4 3
 plotRGB(mi_raster,r=5,g=4,b=3, stretch="hist")
@@ -95,11 +105,19 @@ plotRGB(mi_raster,r=7,g=5,b=4, stretch="hist")
 plotRGB(mi_raster,r=6,g=5,b=4, stretch="hist")
 
 
-plotRGB(mi_raster,r=3,g=2,b=1, stretch="hist")
+#Calculo del indice de vegetacion
+
+banda5 <- subset(ras,5)
+banda4 <- subset(ras,4)
+nvdi = (banda5-banda4)/(banda4+banda5)
+
+graficaNVDI <- leaflet() %>% 
+            addProviderTiles(providers$Esri) %>% 
+            addRasterImage(nvdi, colors = "Spectral")
+
+graficaNVDI
 
 
-plot(mi_raster)
-plot(banda_2)
 
 #kmean calssification
 ?kmeans

@@ -8,6 +8,8 @@ params:
   tabla_resumen: NA
   grafico_municipios: NA
   graficas_individuales: NA
+  promedio_por_departamento: NA
+  mapa_salida: NA
 ---
 
 
@@ -32,6 +34,24 @@ Grafico totales
 ```{r , echo=FALSE}
 params$grafico_municipios
 ```
+
+### Promedios por Departamento
+
+Tabla de Promedios por departamento
+
+```{r, echo=FALSE}
+
+knitr::kable(params$promedio_por_departamento, caption = 'Promedio',booktabs = TRUE, longtable = TRUE)
+
+```
+
+Mapa de Salida
+
+
+```{r , echo=FALSE}
+params$mapa_salida
+```
+
 
 Graficas Individuales por depto
 
