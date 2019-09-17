@@ -12,13 +12,14 @@ Este repositorio contiene demostraciones de uso del paquete r-arcgis-bridge. Tod
 
 - ArcGIS Pro 2 o superior. 
 
-- [R-ArcGIS-bridge](https://learn.arcgis.com/es/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/lessons/install-the-r-arcgis-bridge-and-start-statistical-analysis.htm)
+- [R-ArcGIS: Repositorio principal](https://github.com/R-ArcGIS)
 
 - Jupyter Notebooks. 
 
 ## Recursos y enlaces para R y Python:
 
-- [R-ArcGIS: Repositorio principal](https://github.com/R-ArcGIS)
+
+- [R-ArcGIS-bridge Ejemplo de Crimen - San Francisco](https://learn.arcgis.com/es/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/lessons/install-the-r-arcgis-bridge-and-start-statistical-analysis.htm)
 
 - [R-ArcGIS: Ejemplos y casos de uso](https://github.com/R-ArcGIS/r-sample-tools)
 

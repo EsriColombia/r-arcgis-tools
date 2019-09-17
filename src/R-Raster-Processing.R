@@ -39,7 +39,8 @@ arc.check_product()
 working_directory <- "C:\\esri\\r-arcgis-tools"
 setwd(working_directory)
 path_raster_entrada <- paste(working_directory,"\\datasets\\cartagena.gdb\\cartagena",sep="")
-path_raster_img <- "c:\\esri\\raster_salida"
+path_raster_salida <- paste(working_directory,"\\datasets\\cartagena.gdb\\cartagenakmeans",sep="")
+path_raster_img <- "c:\\esri\\env\\raster_salida"
 
 
 
@@ -127,13 +128,27 @@ v <- getValues(mi_raster)
 i <- which(!is.na(v))
 v <- na.omit(v)
 
-E <- kmeans(v,12,iter.max = 100, nstart = 10)
+E <- kmeans(v,5,iter.max = 100, nstart = 10)
 kmeans_raster <- raster(mi_raster)
 kmeans_raster[i] <- E$cluster
+
 plot(kmeans_raster)
+
+
+cp <- kmeans_raster
+raw <- (kmeans_raster@data@values == 1 ) #Vañies
+vects <- as.numeric(raw)
+cp@data@values<-vects
+pal <- colorNumeric(c("green", "white"), 1:2)
+ImgMonte <- leaflet() %>% 
+  addProviderTiles(providers$Esri) %>% 
+  addRasterImage(cp ,  colors = pal, opacity=0.5)
+
+ImgMonte
+
 writeRaster(kmeans_raster, path_raster_img, format="HFA")
 
-
+arc.write(path_raster_salida,kmeans_raster)
 
 
 
